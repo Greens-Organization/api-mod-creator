@@ -3,9 +3,8 @@ import bcrypt from "bcrypt";
 import { generateToken, verifyToken } from "../helpers/token/tokenHandler";
 import User from "../database/models/user";
 
-const JWT_SECRET = process.env.JWT_SECRET || "adoadovceviado";
-const REFRESH_TOKEN_SECRET =
-  process.env.REFRESH_TOKEN_SECRET || "adoadoadovceviado";
+const JWT_SECRET = process.env.JWT_SECRET!;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;
 
 export async function signUp(req: Request, res: Response) {
   try {
@@ -30,12 +29,12 @@ export async function signUp(req: Request, res: Response) {
     });
 
     const accessToken = await generateToken(
-      { userId: newUser._id },
+      { userId: newUser.id },
       JWT_SECRET,
       "30m",
     );
     const refreshToken = await generateToken(
-      { userId: newUser._id },
+      { userId: newUser.id },
       REFRESH_TOKEN_SECRET,
       "1d",
     );
@@ -89,12 +88,12 @@ export async function signIn(req: Request, res: Response) {
     }
 
     const accessToken = await generateToken(
-      { userId: user._id },
+      { userId: user.id },
       JWT_SECRET,
       "30m",
     );
     const refreshToken = await generateToken(
-      { userId: user._id },
+      { userId: user.id },
       REFRESH_TOKEN_SECRET,
       "1d",
     );

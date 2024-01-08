@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../helpers/token/tokenHandler";
 import User from "../database/models/user";
 
-const JWT_SECRET = process.env.JWT_SECRET || "adoadovceviado";
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 export async function authenticate(
   req: Request,
@@ -20,11 +20,13 @@ export async function authenticate(
 
     const { payload, protectedHeader } = await verifyToken(token, JWT_SECRET);
 
-    const user = User.findById(payload.userId);
+    const user = await User.findOne({ id: payload.userId });
 
     if (!user) {
       return res.status(404).json({ message: "Access denied. User not found" });
     }
+
+    req.body.user = user;
 
     next();
   } catch (error) {

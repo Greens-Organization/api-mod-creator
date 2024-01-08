@@ -3,6 +3,6 @@ import { create } from "../controllers/ModpackController";
 
 const modpackRoutes = express.Router();
 
-modpackRoutes.get("/create", create);
+modpackRoutes.post("/create", create);
 
 export { modpackRoutes };

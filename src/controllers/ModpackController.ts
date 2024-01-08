@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 
+// Criar mod
 export function create(req: Request, res: Response) {
+  console.log(req.body);
+
   const { name } = req.body;
 
   if (!name) {

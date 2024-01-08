@@ -15,7 +15,6 @@ export async function validateAccessKeyMiddleware(
 
     next();
   } catch (error) {
-    console.error("Error in API key validation:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

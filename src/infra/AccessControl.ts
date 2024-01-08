@@ -29,7 +29,7 @@ function calculateExpirationDate(expires: string): Date {
   return expiration;
 }
 
-const SECRET_KEY = process.env.SECRET_KEY || "efogo";
+const SECRET_KEY = process.env.SECRET_KEY!;
 
 /**
  * Create access key function
